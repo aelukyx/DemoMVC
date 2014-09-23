@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using Demo.DB;
@@ -21,7 +22,7 @@ namespace Demo.Controllers
         public ActionResult Index()
         {
             var model = entities.Posts.ToList();
-            return View(model);
+            return View("Index", model);
         }
 
         [HttpGet]
@@ -31,12 +32,16 @@ namespace Demo.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Post model)
+        public ActionResult Create(Post post)
         {
-            if (!ModelState.IsValid) return View(model);
-            entities.Posts.Add(model);
-            entities.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                entities.Posts.Add(post);
+                entities.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            return View("Create");
         }
 
         [HttpGet]
