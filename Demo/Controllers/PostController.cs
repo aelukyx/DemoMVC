@@ -22,7 +22,7 @@ namespace Demo.Controllers
         public ActionResult Index()
         {
             var model = entities.Posts.ToList();
-            return View("Index", model);
+            return View(model);
         }
 
         [HttpGet]

@@ -1,0 +1,36 @@
+<<<<<<< HEAD
+﻿using Demo.Models;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
+
+namespace Demo.DB
+{
+    public class DemoEntities: DbContext
+    {
+        public DbSet<Post> Posts { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer<DemoEntities>(null);
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+        }
+    }
+=======
+﻿using Demo.Models;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
+
+namespace Demo.DB
+{
+    public class DemoEntities: DbContext
+    {
+        public DbSet<Post> Posts { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer<DemoEntities>(null);
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+        }
+    }
+>>>>>>> 061dd389666063e1561e9feac02250109b7b0503
+}
