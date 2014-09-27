@@ -15,7 +15,14 @@
                 @RenderBody()
         </div>
 
-        
+        <script src="@Url.Content("~/Scripts/jquery-1.8.2.min.js")"></script>
         @RenderSection("scripts", required: false)
+        <script>
+            (function($) {
+                $('#select').change(function() {
+                    $('#Title').val("Hola mundo " + $('#select').val());
+                });
+            })(jQuery);
+        </script>
     </body>
 </html>

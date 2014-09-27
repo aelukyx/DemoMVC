@@ -1,20 +1,37 @@
 ﻿<h3>Creación de Posts</h3>
+
+
+<input type="text" value="Hola mundo"/>
+<select id="select">
+    <option>Value 1</option>
+    <option>Value 2</option>
+    <option selected>Value 3</option>
+    <option>Value 4</option>
+    <option>Value 5</option>
+</select>
+
 <form action="@Url.Action("Create", "Post")" method="POST" class="form-horizontal">
     <div class="form-group">
         <label for="Title" class="col-sm-2 control-label">Título</label>
         <div class="col-sm-10">
-            @Html.TextBox("Title","", new {@class="form-control"})
+            @Html.TextBox("Title", "", new { @class = "form-control" })
         </div>
     </div>
-    
+    <div class="form-group">
+        <label for="Comments" class="col-sm-2 control-label">Categoria</label>
+        <div class="col-sm-10">
+            @Html.DropDownList("CategoryId", new SelectList((List<Demo.Models.Category>)ViewBag.Categorias, "Id", "Name"), "[SELECCIONE UNA OPCIÓN]", new{@class="form-control"})
+        </div>
+    </div>
+
     <div class="form-group">
         <label for="Comments" class="col-sm-2 control-label">Comentario</label>
         <div class="col-sm-10">
             @Html.TextArea("Comments", "", new { @class = "form-control" })
         </div>
     </div>
-    
+
     <button type="submit" class="btn btn-default pull-right">Guardar</button>
-    
+
 
 </form>

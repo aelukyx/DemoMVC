@@ -4,12 +4,14 @@ using System.Linq;
 using System.Web.Mvc;
 using Demo.DB;
 using Demo.Models;
+using System.Data.Entity;
 
 namespace Demo.Controllers
 {
     public class PostController : Controller
     {
         //
+
         // GET: /Post/
         private readonly DemoEntities entities;
 
@@ -19,15 +21,19 @@ namespace Demo.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string buscar)
         {
-            var model = entities.Posts.ToList();
-            return View(model);
+            var query = entities.Posts.Include(x => x.Category);
+
+            query = !String.IsNullOrEmpty(buscar) ? query.Where(x => x.Title.Contains(buscar)) : query;
+
+            return View(query.ToList());
         }
 
         [HttpGet]
         public ActionResult Create()
         {
+            ViewBag.Categorias = entities.Categories.ToList();
             return View();
         }
 
@@ -41,12 +47,14 @@ namespace Demo.Controllers
 
                 return RedirectToAction("Index");
             }
+            ViewBag.Categorias = entities.Categories.ToList();
             return View("Create");
         }
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            ViewBag.Categorias = entities.Categories.ToList();
             return View(entities.Posts.Find(id));
         }
 
@@ -66,5 +74,6 @@ namespace Demo.Controllers
             entities.SaveChanges();
             return RedirectToAction("Index");
         }
+
     }
 }
