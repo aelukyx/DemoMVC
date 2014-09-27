@@ -1,0 +1,15 @@
+﻿@model Demo.Models.Post
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label for="Title">Título</label>
+        @Html.TextBoxFor(o => o.Title, new {@class="form-control", placeholder="Ingrese título"})
+    </div>
+    <div class="form-group">
+        <label for="Comments">Comentario</label>
+        @Html.TextAreaFor(o => o.Comments, new {@class = "form-control"})
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+    @Html.HiddenFor(o => o.Id)
+}

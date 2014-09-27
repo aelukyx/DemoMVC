@@ -1,0 +1,5 @@
+<<<<<<< HEAD
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Demo.MvcApplication" Language="C#" %>
+=======
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="Demo.MvcApplication" Language="C#" %>
+>>>>>>> 061dd389666063e1561e9feac02250109b7b0503
