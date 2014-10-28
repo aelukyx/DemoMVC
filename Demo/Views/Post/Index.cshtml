@@ -1,4 +1,4 @@
-﻿@model List<Demo.Models.Post>
+﻿@model IList<Demo.Models.Models.Post>
        
 <h3>Lista de Posts</h3>    
 <div class="row">
@@ -26,7 +26,7 @@
             {
                 <tr>
                     <td>@item.Title</td>
-                    <td>@item.Category.Name</td>
+                    
                     <td>@item.Comments</td>
                     <td>
                         <a href="@Url.Action("Edit", "Post", new{id = item.Id})">Editar</a> |
