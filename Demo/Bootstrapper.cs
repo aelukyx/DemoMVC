@@ -27,7 +27,7 @@ namespace Demo
 
       // e.g. container.RegisterType<ITestService, TestService>();   
 
-      container.RegisterType<IPostService, PostService>();
+      container.RegisterType<IPostService, PostService>(); 
       RegisterTypes(container);
 
       return container;

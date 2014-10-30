@@ -19,5 +19,10 @@ namespace Demo.Services.Services
         {
             return entities.Posts.ToList();
         }
+
+        public Post GetById(int id)
+        {
+            return entities.Posts.Find(id);
+        }
     }
 }

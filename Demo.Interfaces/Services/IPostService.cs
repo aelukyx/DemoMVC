@@ -6,5 +6,6 @@ namespace Demo.Interfaces.Services
     public interface IPostService
     {
         IList<Post> All();
+        Post GetById(int id);
     }
 }
