@@ -7,5 +7,7 @@ namespace Demo.Interfaces.Services
     {
         IList<Post> All();
         Post GetById(int id);
+        void Insert(Post post);
+        void Update(Post post);
     }
 }

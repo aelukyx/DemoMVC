@@ -11,10 +11,11 @@ namespace Demo.Services.Services
     {
         private readonly DemoEntities entities;
 
-        public PostService()
+        public PostService(DemoEntities entities)
         {
-            this.entities = new DemoEntities();
+            this.entities = entities;
         }
+        
         public IList<Post> All()
         {
             return entities.Posts.ToList();
@@ -22,7 +23,18 @@ namespace Demo.Services.Services
 
         public Post GetById(int id)
         {
-            return entities.Posts.Find(id);
+            return entities.Posts.First(x => x.Id == id);
+        }
+
+        public void Insert(Post post)
+        {
+            entities.Posts.Add(post);
+            entities.SaveChanges();
+        }
+
+        public void Update(Post post)
+        {
+
         }
     }
 }

@@ -27,9 +27,7 @@ namespace Demo.Test.Controllers
 
             //Assert
             mock.Verify(x => x.All(), Times.Once);
-            Assert.IsNotNull(view);
-            Assert.AreEqual("Index", view.ViewName);
-            Assert.IsNotNull(view.Model);
+            AssertViewsWithModel(view, "Index");
             Assert.IsInstanceOf(typeof (List<Post>), view.Model);
         }
 
@@ -62,10 +60,97 @@ namespace Demo.Test.Controllers
             var view = controller.Details(1) as ViewResult;
 
             //Assert
-            Assert.IsNotNull(view);
-            Assert.AreEqual("Details", view.ViewName);
-            Assert.IsNotNull(view.Model);
+            AssertViewsWithModel(view, "Details");
             Assert.IsInstanceOf(typeof(Post), view.Model);
+        }
+
+        [Test]
+        public void TestCreateReturnViewIsOk()
+        {
+            var controller = new PostController(null);
+
+            var view = controller.Create() as ViewResult;
+
+            AssertViewWithoutModel(view, "Create");
+
+        }
+
+        [Test]
+        public void TestPostGuardadoCorrectamenteRedirectToIndex()
+        {
+            var mock = new Mock<IPostService>();
+            var controller = new PostController(mock.Object);
+
+            var redirect = controller.Create(new Post { Title = "Mi First Post"}) as RedirectToRouteResult;
+
+            Assert.IsNotNull(redirect);
+            Assert.AreEqual("Index", redirect.RouteValues["action"]);
+        }
+
+        [Test]
+        public void TestPostValicacionFallaReturnViewCreate()
+        {
+            var mock = new Mock<IPostService>();
+            var controller = new PostController(mock.Object);
+
+            var view = controller.Create(new Post()) as ViewResult;
+
+            AssertViewsWithModel(view, "create");
+            Assert.IsInstanceOf(typeof(Post), view.Model);
+
+        }
+
+        [Test]
+        public void TestEditReturnViewIsOk()
+        {
+            var mock = new Mock<IPostService>();
+            mock.Setup(x => x.GetById(1)).Returns(new Post()) ;
+
+            var controller = new PostController(mock.Object);
+
+            var view = controller.Edit(1) as ViewResult;
+
+            AssertViewsWithModel(view, "edit");
+            mock.Verify(x=>x.GetById(1),Times.Exactly(1));
+           
+        }
+        [Test]
+        public void TestEditEditGuardoCorrectamente()
+        {
+            //arrange
+            var mock = new Mock<IPostService>();
+            var controller = new PostController(mock.Object);
+
+            var redirect = controller.Edit(new Post { Title= "Post MIDIFICADO"}) as RedirectToRouteResult;
+
+            Assert.IsNotNull(redirect);
+            Assert.AreEqual("Index", redirect.RouteValues["action"]);
+        }
+
+        [Test]
+        public void TestEditCuandoValidacionFallaRetronaVistaEdit()
+        {
+            var controller = new PostController(null);
+
+            var view = controller.Edit(new Post()) as ViewResult;
+
+            AssertViewsWithModel(view, "Edit");
+            
+        }
+
+
+        private void AssertViewsWithModel(ViewResult view, string viewName)
+        {
+            Assert.IsNotNull(view, "Vista no puede ser nulo");
+            Assert.AreEqual(viewName, view.ViewName);
+            Assert.IsNotNull(view.Model);
+        }
+
+        private void AssertViewWithoutModel(ViewResult view, string viewName)
+        {
+            Assert.IsNotNull(view);
+            Assert.AreEqual(viewName, view.ViewName);
+            Assert.IsNull(view.Model);
         }
     }
 }

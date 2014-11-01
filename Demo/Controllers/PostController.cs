@@ -28,6 +28,54 @@ namespace Demo.Controllers
                 return RedirectToAction("Index");
             return View("Details",service.GetById(id));
         }
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View("Create");
+        }
+
+        [HttpPost]
+        public ActionResult Create(Post post)
+        { 
+            // Guardar
+
+            // si validacion no pasa retornamos el mismo formulario
+            if (ValidationPass(post))
+            {
+                service.Insert(post);
+                return RedirectToAction("Index");
+            }
+            return View("create", post);
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+           var model = service.GetById(id);
+           return View("edit",model);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Post post)
+        {
+            if (ValidationPass(post))
+            {
+                service.Update(post);
+                return RedirectToAction("Index");
+            }
+            return View("Edit", post);
+        }
+
+
+
+        private bool ValidationPass(Post post)
+        {
+            if (string.IsNullOrEmpty(post.Title))
+                return false;
+            return true;
+
+        }
         
         
     }
