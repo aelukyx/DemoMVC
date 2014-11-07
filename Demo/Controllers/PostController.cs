@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Demo.Interfaces.Services;
 using System.Web.Mvc;
 using Demo.Models.Models;
@@ -41,7 +42,8 @@ namespace Demo.Controllers
             // Guardar
 
             // si validacion no pasa retornamos el mismo formulario
-            if (ValidationPass(post))
+            ValidateCreatePost(post);
+            if (ModelState.IsValid)
             {
                 service.Insert(post);
                 return RedirectToAction("Index");
@@ -59,7 +61,7 @@ namespace Demo.Controllers
         [HttpPost]
         public ActionResult Edit(Post post)
         {
-            if (ValidationPass(post))
+            if (ModelState.IsValid)
             {
                 service.Update(post);
                 return RedirectToAction("Index");
@@ -69,11 +71,10 @@ namespace Demo.Controllers
 
 
 
-        private bool ValidationPass(Post post)
+        private void ValidateCreatePost(Post post)
         {
-            if (string.IsNullOrEmpty(post.Title))
-                return false;
-            return true;
+            if (post.Email != "ludk17@gmail.com")
+                ModelState.AddModelError("Email", "Email no es correcto");
 
         }
         

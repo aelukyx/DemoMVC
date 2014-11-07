@@ -14,6 +14,9 @@ namespace Demo.Models.Models
         public String Comments { get; set; }
         [Required]
         public int CategoryId { get; set; }
+
+        public String Email { get; set; }
+
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
 
