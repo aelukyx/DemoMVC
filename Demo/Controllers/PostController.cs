@@ -39,9 +39,7 @@ namespace Demo.Controllers
         [HttpPost]
         public ActionResult Create(Post post)
         { 
-            // Guardar
-
-            // si validacion no pasa retornamos el mismo formulario
+           
             ValidateCreatePost(post);
             if (ModelState.IsValid)
             {
@@ -73,7 +71,7 @@ namespace Demo.Controllers
 
         private void ValidateCreatePost(Post post)
         {
-            if (post.Email != "ludk17@gmail.com")
+            if (!Regex.IsMatch(post.Email, "^[a-zA-Z0-9_]+[@][a-zA-Z_]+[.][a-zA-Z0-9]+$"))
                 ModelState.AddModelError("Email", "Email no es correcto");
 
         }

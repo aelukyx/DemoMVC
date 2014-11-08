@@ -51,7 +51,7 @@ namespace Demo.Test.Services
             var result = service.GetById(1);
 
             Assert.AreEqual("My First Post", result.Title);
-            Assert.AreEqual("Lorem ipsum", result.Comments);
+            Assert.AreEqual("Lorem ipsum", result.Body);
         }
 
 
@@ -60,7 +60,7 @@ namespace Demo.Test.Services
             
             var service = new PostService(entitiesMock.Object);
 
-            service.Insert(new Post { Title = "Tercer Post", Comments = "Lorem ipsum"});            
+            service.Insert(new Post { Title = "Tercer Post", Body = "Lorem ipsum"});            
         }
 
 
@@ -68,8 +68,8 @@ namespace Demo.Test.Services
         {
             return new List<Post>
             {
-                new Post { Id = 1, Title = "My First Post", Comments = "Lorem ipsum"},
-                new Post { Id = 2, Title = "My Second Post", Comments = "Lorem ipsum"},
+                new Post { Id = 1, Title = "My First Post", Body = "Lorem ipsum"},
+                new Post { Id = 2, Title = "My Second Post", Body = "Lorem ipsum"},
             }.AsQueryable();
         }
     }

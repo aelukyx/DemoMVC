@@ -5,21 +5,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Demo.Models.Models
 {
     public class Post
-    {
-        [Key]
+    {       
         public int Id { get; set; }
-        [Required]
+        
         public String Title { get; set; }
-        [Required]
-        public String Comments { get; set; }
-        [Required]
-        public int CategoryId { get; set; }
+        
+        public String Body { get; set; }      
+       
 
         public String Email { get; set; }
 
-        [ForeignKey("CategoryId")]
+        public int? CategoryId { get; set; }
+
         public Category Category { get; set; }
-
-
     }
 }

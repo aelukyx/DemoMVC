@@ -2,6 +2,7 @@
 using System.Data.Entity.ModelConfiguration.Conventions;
 
 using Demo.Models.Models;
+using Demo.DB.Map;
 
 namespace Demo.DB.DB
 {
@@ -12,8 +13,11 @@ namespace Demo.DB.DB
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.SetInitializer<DemoEntities>(null);
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            //Database.SetInitializer<DemoEntities>(null);
+            //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Configurations.Add<Post>(new PostConfiguration());
         }
     }
 }
